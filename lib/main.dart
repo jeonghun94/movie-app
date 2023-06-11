@@ -202,97 +202,99 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Hero(
-                tag: widget.id,
-                child: Container(
-                  width: 350,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(35),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 15,
-                        offset: const Offset(10, 10),
-                        color: Colors.black.withOpacity(0.03),
-                      )
-                    ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Hero(
+                  tag: widget.id,
+                  child: Container(
+                    width: 350,
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(35),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 15,
+                          offset: const Offset(10, 10),
+                          color: Colors.black.withOpacity(0.03),
+                        )
+                      ],
+                    ),
+                    child: Image.network(widget.posterPath),
                   ),
-                  child: Image.network(widget.posterPath),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 25,
-          ),
-          FutureBuilder(
-            future: movie,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 30,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: Text(
-                          'Overview',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Text(
-                        snapshot.data!.overview,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: Text(
-                          'Genres',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Wrap(
-                        children: snapshot.data!.genres.map((genre) {
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 8),
-                            child: Chip(
-                              label: Text(genre.name),
+              ],
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            FutureBuilder(
+              future: movie,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 30,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: Text(
+                            'Overview',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
                             ),
-                          );
-                        }).toList(),
-                      ),
-                    ],
-                  ),
-                );
-              }
-              return const Text("...");
-            },
-          )
-        ],
+                          ),
+                        ),
+                        Text(
+                          snapshot.data!.overview,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: Text(
+                            'Genres',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Wrap(
+                          children: snapshot.data!.genres.map((genre) {
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 8),
+                              child: Chip(
+                                label: Text(genre.name),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+                return const Text("...");
+              },
+            )
+          ],
+        ),
       ),
     );
   }
